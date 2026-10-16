@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <title>Care Sync — Fall Detection Alert System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Care Sync home">
+          <span class="brand-mark" aria-hidden="true"><span class="brand-orbit"></span><span class="brand-core">＋</span></span>
+          <span>Care <span class="brand-accent">Sync</span></span>
+        </a>
+        <div class="topbar-right">
+          <div class="team-brand" aria-label="Team Prime">
+            <img class="team-logo" src="WhatsApp%20Image%202026-10-08%20at%2015.17.40.jpeg" alt="Team Prime logo" />
+            <span>TEAM <strong>PRIME</strong></span>
+          </div>
+          <span class="demo-badge"><span class="badge-dot"></span> DEMO MODE</span>
+        </div>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">ELDERLY CARE · MOTION SENSOR PROTOTYPE</p>
+        <h1>Fall Detection<br /><span>Alert System</span></h1>
+        <p class="intro-copy">Motion event ke baad 5 seconds tak movement na mile, to possible fall alert simulate hota hai. Yeh browser demo hai, actual hardware connected nahi hai.</p>
+      </section>
+
+      <section class="dashboard" aria-label="Fall detection dashboard">
+        <article class="card status-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-label">SYSTEM STATUS</p>
+              <h2 id="statusTitle">Sab theek hai</h2>
+            </div>
+            <span class="status-icon" id="statusIcon" aria-hidden="true">✓</span>
+          </div>
+          <p class="status-detail" id="statusDetail" aria-live="polite">System active hai. Movement ka intezaar hai.</p>
+          <div class="divider"></div>
+          <div class="activity-row">
+            <span class="activity-dot" id="activityDot"></span>
+            <span id="activityText">Koi movement detect nahi hui</span>
+            <span class="activity-time" id="activityTime">--:--</span>
+          </div>
+        </article>
+
+        <article class="card monitor-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-label">LIVE MONITOR</p>
+              <h2>Sensor overview</h2>
+            </div>
+            <span class="live-label"><span></span> LIVE</span>
+          </div>
+          <div class="sensor-visual" id="sensorVisual" aria-hidden="true">
+            <span class="orbit orbit-one"></span>
+            <span class="orbit orbit-two"></span>
+            <span class="sensor-center"><span>⌁</span></span>
+            <span class="sensor-caption">MOTION SENSOR</span>
+          </div>
+          <div class="device-list">
+            <div class="device-row">
+              <span class="device-icon motion-icon" aria-hidden="true">⌁</span>
+              <span class="device-name">Motion sensor</span>
+              <span class="device-state" id="sensorState"><span></span> Ready</span>
+            </div>
+            <div class="device-row">
+              <span class="device-icon led-icon" id="ledIcon" aria-hidden="true">●</span>
+              <span class="device-name">LED indicator</span>
+              <span class="device-state" id="ledState"><span></span> Off</span>
+            </div>
+            <div class="device-row">
+              <span class="device-icon buzzer-icon" id="buzzerIcon" aria-hidden="true">♫</span>
+              <span class="device-name">Buzzer</span>
+              <span class="device-state" id="buzzerState"><span></span> Off</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card controls-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-label">TEST CONTROLS</p>
+              <h2>Simulation chalao</h2>
+            </div>
+            <span class="test-icon" aria-hidden="true">↗</span>
+          </div>
+          <p class="controls-copy">Buttons se sensor events simulate karke alert flow test karein.</p>
+          <button class="button button-fall" id="fallButton" type="button">
+            <span class="button-symbol" aria-hidden="true">↓</span>
+            <span><strong>Simulate Fall</strong><small>Sudden movement detect karein</small></span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <button class="button button-move" id="movementButton" type="button">
+            <span class="button-symbol" aria-hidden="true">⌁</span>
+            <span><strong>Movement Detected</strong><small>Normal activity simulate karein</small></span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <button class="button button-move" id="connectSensorButton" type="button">
+            <span class="button-symbol" aria-hidden="true">＋</span>
+            <span><strong>Connect Sensor</strong><small>Sensor connection simulate karein</small></span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <button class="button button-fall" id="disconnectSensorButton" type="button">
+            <span class="button-symbol" aria-hidden="true">−</span>
+            <span><strong>Remove Sensor</strong><small>Disconnection alert simulate karein</small></span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <button class="button button-move" id="cameraButton" type="button" aria-pressed="false">
+            <span class="button-symbol" aria-hidden="true">◉</span>
+            <span><strong>Start Camera</strong><small>Motion detect hone par notification bhejein</small></span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <div class="camera-preview" id="cameraPreview">
+            <video id="webcamPreview" autoplay muted playsinline aria-label="Live webcam preview"></video>
+            <span class="camera-placeholder">Camera preview yahan dikhega</span>
+          </div>
+          <p class="controls-copy" id="cameraStatus" aria-live="polite">Webcam monitoring band hai.</p>
+          <a class="sms-alert-link" id="smsAlertLink" href="sms:+918864071335" hidden>Open SMS draft for caregiver</a>
+          <p class="sms-note">SMS draft phone ke messaging app mein khulega; send karne se pehle confirm karein.</p>
+          <button class="reset-button" id="resetButton" type="button">↺ &nbsp; Reset simulation</button>
+        </article>
+
+        <article class="card timer-card">
+          <div class="timer-heading">
+            <div>
+              <p class="card-label">INACTIVITY TIMER</p>
+              <h2>Emergency alert</h2>
+            </div>
+            <span class="timer-icon" aria-hidden="true">◷</span>
+          </div>
+          <p class="timer-copy" id="timerCopy">Possible fall simulate karne ke liye button dabayein.</p>
+          <div class="timer-display" id="timerDisplay" aria-live="polite">—<span> SEC</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <p class="timer-note"><span>i</span> 5 seconds tak movement na mile to buzzer aur LED alert simulate hoga.</p>
+        </article>
+      </section>
+
+      <section class="card wiring-card" aria-labelledby="wiringTitle">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">HARDWARE SETUP</p>
+            <h2 id="wiringTitle">Arduino UNO / Nano connections</h2>
+          </div>
+        </div>
+        <div class="wiring-table-wrap">
+          <table class="wiring-table">
+            <thead><tr><th>Component</th><th>Connection</th></tr></thead>
+            <tbody>
+              <tr><td>Motion sensor</td><td>VCC → 5V · GND → GND · OUT → D2</td></tr>
+              <tr><td>Buzzer</td><td>+ → D8 · − → GND</td></tr>
+              <tr><td>LED</td><td>D13 → resistor (220–330 Ω) → LED anode · cathode → GND</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="wiring-note"><strong>Prototype note:</strong> Basic motion sensors detect movement, but cannot reliably identify a fall. Treat this as a possible-fall demo; an accelerometer/gyroscope wearable is a better next step for fall-pattern detection.</p>
+      </section>
+
+      <footer><span class="footer-indicator"></span> Browser simulation · Actual hardware se connected nahi hai</footer>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
